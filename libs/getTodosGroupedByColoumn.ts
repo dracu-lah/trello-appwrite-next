@@ -12,7 +12,6 @@ export const getTodosGroupedByColoumn = async () => {
     if (!acc.get(todo.status)) {
       acc.set(todo.status, { id: todo.status, todos: [] });
     }
-    console.log(acc);
     acc.get(todo.status)!.todos.push({
       $id: todo.$id,
       $createdAt: todo.$createdAt,
@@ -40,6 +39,5 @@ export const getTodosGroupedByColoumn = async () => {
   const board: Board = {
     columns: sortedColumns,
   };
-  console.log(board)
   return board;
 };
