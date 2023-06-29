@@ -82,7 +82,7 @@ export default function Modal() {
                   >
                     <PhotoIcon className="h-6 w-6 mr-2 inline-block" />
                   </button>
-                  {image  && (
+                  {image && (
                     <Image
                       alt="Uploaded Image"
                       width={200}
@@ -108,7 +108,8 @@ export default function Modal() {
                 <div>
                   <button
                     type="submit"
-                    disabled={!newTaskInput}
+                    // disabled={!newTaskInput}
+                    disabled
                     className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:bg-gray-100 disabled:text-gray-300 disabled:cursor-not-allowed"
                   >
                     Add Task
