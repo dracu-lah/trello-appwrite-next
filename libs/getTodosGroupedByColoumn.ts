@@ -7,7 +7,6 @@ export const getTodosGroupedByColoumn = async () => {
   );
 
   const Data = data.documents;
-
   const columns = Data.reduce((acc, todo) => {
     if (!acc.get(todo.status)) {
       acc.set(todo.status, { id: todo.status, todos: [] });
