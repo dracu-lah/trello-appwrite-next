@@ -1,4 +1,4 @@
-import { databases } from "@/appwrite";
+import { databases, storage } from "@/appwrite";
 import { getTodosGroupedByColoumn } from "@/libs/getTodosGroupedByColoumn";
 import { create } from "zustand";
 
@@ -9,9 +9,10 @@ interface BoardState {
   updateTodoInDB: (todo: Todo, columnId: TypedColumn) => void;
   searchString: string;
   setSearchString: (searchString: string) => void;
+  deleteTask: (taskIndex: number, todoId: Todo, id: TypedColumn) => void;
 }
 
-export const useBoardStore = create<BoardState>((set) => ({
+export const useBoardStore = create<BoardState>((set, get) => ({
   board: { columns: new Map<TypedColumn, Column>() },
   searchString: "",
 
@@ -29,4 +30,20 @@ export const useBoardStore = create<BoardState>((set) => ({
     );
   },
   setSearchString: (searchString) => set({ searchString }),
+  deleteTask: async (taskIndex: number, todo: Todo, id: TypedColumn) => {
+    const newColumns = new Map(get().board.columns);
+
+    // delete todoId from newColumns
+    newColumns.get(id)?.todos.splice(taskIndex, 1);
+
+    set({ board: { columns: newColumns } });
+    if (todo.image) {
+      await storage.deleteFile(todo.image.bucketId, todo.image.fileId);
+    }
+    await databases.deleteDocument(
+      "6492a39d932fac34456b",
+      "6492a3f3dc2b6a6df10f",
+      todo.$id
+    );
+  },
 }));
