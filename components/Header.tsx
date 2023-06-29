@@ -21,7 +21,7 @@ const Header = () => {
       setSuggestion(suggestion);
       setLoading(false);
     };
-    // fetchSuggestionFunc();
+    fetchSuggestionFunc();
   }, [board]);
 
   return (
